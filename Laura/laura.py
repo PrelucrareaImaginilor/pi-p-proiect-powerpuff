@@ -1,18 +1,16 @@
 import pandas as pd
+import os
 
 def load_tsv(file_path):
     try:
-        df = pd.read_csv(file_path, sep='\t')
-        return df
-    except FileNotFoundError:
-        print(f"Error: The file '{file_path}' was not found.")
-        return None
-    except pd.errors.EmptyDataError:
-        print(f"Error: The file '{file_path}' is empty.")
-        return None
-    except pd.errors.ParserError:
-        print(f"Error: There was a parsing error while reading the file.")
-        return None
+        data = pd.read_csv(file_path, sep='\t')
+        print(f"Incarcat informatii din {file_path}")
+        return data
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-        return None
+        print(f"Eroare la incarcare fisier {file_path}: {e}")
+        return pd.DataFrame()
+
+def list_tsv_files(directory):
+    tsv_files = [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith('.tsv')]
+    print(f"Am gasit {len(tsv_files)} fisiere TSV in {directory}")
+    return tsv_files

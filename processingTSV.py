@@ -1,20 +1,29 @@
 import os
-from Laura import *
-from George import *
+import laura
+import george
 
-def process_tsv_files(input_folder, output_folder):
-    os.makedirs(output_folder, exist_ok=True)
-    tsv_files = [f for f in os.listdir(input_folder) if f.endswith('.tsv')]
+def process_all_tsv_files(input_directory, output_directory):
+    tsv_files = laura.list_tsv_files(input_directory)
 
-    for file_name in tsv_files:
-        file_path = os.path.join(input_folder, file_name)
-        data_frame = load_tsv(file_path)
-        if data_frame is not None:
-            matrix = data_frame.values
-            vector = extract_upper_triangular(matrix)
-            output_file_name = f"vector_{file_name[:-4]}.tsv"
-            output_path = os.path.join(output_folder, output_file_name)
+    if not tsv_files:
+        print(f"Nu am gasit fisiere TSV in {input_directory}.")
+        return
 
-            pd.DataFrame(vector).to_csv(output_path, sep='\t', index=False, header=False)
-            print(f"Vector extracted and saved from {file_name} to {output_path}")
+    for tsv_file in tsv_files:
+        print(f"Procesam fisierul: {tsv_file}")
 
+        data = laura.load_tsv(tsv_file)
+
+        if data.empty:
+            print(f"Salt fisierul {tsv_file} pentru ca este gol.")
+            continue
+
+        george.process_matrix_file(tsv_file, output_directory)
+
+    print("Procesarea fisierelor TSV a fost completata.")
+
+if __name__ == "__main__":
+    input_directory = 'resources/train_tsv'
+    output_directory = 'output_vectors'
+
+    process_all_tsv_files(input_directory, output_directory)
