@@ -1,5 +1,5 @@
-from processingTSV import process_all_tsv_files
-from correlation_matrix import create_correlation_matrix
+from feature_matrix import create_feature_matrix
+from Laura import *
 
 
 def main():
@@ -12,12 +12,12 @@ def main():
     # process_all_tsv_files(input_directory, output_directory)
     # print("TSV processing pipeline completed successfully.")
 
-    print("Start! Matricea de corelare incepe...")
-    correlation_matrix = create_correlation_matrix(metadata_file, output_directory)
-    print("Matrice de corelare creata..")
+    print("Start! Matricea de feature incepe...")
+    feature_matrix = create_feature_matrix(metadata_file, output_directory)
+    print("Matrice de feature creata..")
 
     output_file = 'output_vectors/patient_correlation_matrix.csv'
-    correlation_matrix.to_csv(output_file)
+    feature_matrix.to_csv(output_file, index=False)
     print(f"Matricea de corelare a fost salvata la: '{output_file}'.")
 
 

@@ -1,6 +1,6 @@
 import os
-import laura
-import george
+from Laura import *
+from George import *
 
 def process_all_tsv_files(input_directory, output_directory):
     tsv_files = laura.list_tsv_files(input_directory)
