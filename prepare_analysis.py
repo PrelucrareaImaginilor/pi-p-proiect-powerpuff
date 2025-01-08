@@ -153,3 +153,4 @@ x_test_output_path = os.path.join(project_dir, 'output_resources/x_test.csv')
 x_train.to_csv(x_train_output_path, index=False)  # Save x_train (features) without row index
 y_train.to_csv(y_train_output_path, index=False)  # Save y_train (target variable) without row index
 x_test.to_csv(x_test_output_path, index=False)    # Save x_test (features) without row index
+
