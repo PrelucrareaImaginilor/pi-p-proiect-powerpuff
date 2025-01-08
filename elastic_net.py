@@ -112,4 +112,3 @@ submission_file_path = os.path.join(project_dir, 'submission_elasticnet.csv')
 submission_df.to_csv(submission_file_path, index=False)
 
 
-
